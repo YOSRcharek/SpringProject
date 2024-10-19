@@ -1,4 +1,4 @@
-package tn.esprit.charekyosr4twin5.entites;
+package tn.esprit.charekyosr4twin5.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
@@ -17,12 +19,16 @@ import java.time.LocalDate;
 @ToString
 @NoArgsConstructor
 @Table
-public class Instructor {
+public class Registration implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private Long numInstructor ;
-    private LocalDate dateOfHire ;
-    private String name;
+    private Long numRegistraion ;
+    private int numWeek ;
+    @ManyToOne
+    Skieur skieur;
+
+    @ManyToOne
+    Course course;
 
 }

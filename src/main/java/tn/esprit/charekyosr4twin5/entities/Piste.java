@@ -1,4 +1,4 @@
-package tn.esprit.charekyosr4twin5.entites;
+package tn.esprit.charekyosr4twin5.entities;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
@@ -9,19 +9,23 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDate;
+import java.io.Serializable;
 import java.time.LocalTime;
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 @Table
-public class Piste {
+public class Piste implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long numPiste;
     private String namePiste;
+
+
 
     private int length;
     private int slope;
@@ -30,4 +34,6 @@ public class Piste {
     @Enumerated(EnumType.STRING)
     private Color color;
 
+    @ManyToMany(mappedBy = "pistes")
+    Set<Skieur> skieurs;
 }

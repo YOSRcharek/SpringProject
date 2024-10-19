@@ -1,4 +1,5 @@
-package tn.esprit.charekyosr4twin5.entites;
+package tn.esprit.charekyosr4twin5.entities;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -8,7 +9,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import java.time.LocalDate; import java.time.LocalTime;
+
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -16,20 +20,16 @@ import java.time.LocalDate; import java.time.LocalTime;
 @ToString
 @NoArgsConstructor
 @Table
-public class Subscription {
+public class Instructor implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private Long numSub;
-    private Float price;
+    private Long numInstructor ;
+    private LocalDate dateOfHire ;
+    private String name;
+    @OneToMany
+    Set<Course> courses;
 
-    private LocalDate startDate;
-    private LocalDate endDate;
-    @Enumerated(EnumType.STRING)
-    private Subscription.TypeSubscription typeSub;
 
-    public enum TypeSubscription {
-        ANNUAL, MONTHLY, SEMESTRIAL
-    }
 
 }

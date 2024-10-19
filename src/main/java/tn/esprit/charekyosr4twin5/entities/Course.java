@@ -1,4 +1,6 @@
-package tn.esprit.charekyosr4twin5.entites;import jakarta.persistence.Entity;
+package tn.esprit.charekyosr4twin5.entities;
+
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -8,13 +10,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
+import java.util.Set;
+
 @Entity
 @Getter
 @NoArgsConstructor
 @Setter
 @ToString
 @Table
-public class Course {
+public class Course implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
@@ -23,15 +28,14 @@ public class Course {
     private Float price ;
     private int timeSlot ;
     @Enumerated(EnumType.STRING)
-    private Course.Support support;
+    private Support support;
     public enum Support {
         SKI, SNOWBOARD
     }
 
     @Enumerated(EnumType.STRING)
-    private Course.TypeCourse typeCourse;
-    public enum TypeCourse {
-        COLLECTIVE_CHILDREN, COLLECTIVE_ADULT, INDIVIDUAL
-    }
+    private TypeCourse typeCourse;
+    @OneToMany(mappedBy = "course")
+    Set<Registration> registrations;
 
 }
