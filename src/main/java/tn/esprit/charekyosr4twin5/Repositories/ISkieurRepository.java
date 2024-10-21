@@ -5,4 +5,5 @@ import tn.esprit.charekyosr4twin5.entities.Skieur;
 
 public interface ISkieurRepository extends CrudRepository <Skieur, Long> {
 
+
 }
