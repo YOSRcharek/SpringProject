@@ -24,8 +24,8 @@ public class Skieur implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idskier;
-    private String name;
-
+    private String firstName;
+    private String lastName;
     private LocalDate birthDate;
     private String city;
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
