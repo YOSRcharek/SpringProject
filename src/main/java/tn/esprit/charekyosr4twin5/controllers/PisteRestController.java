@@ -1,6 +1,7 @@
 package tn.esprit.charekyosr4twin5.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.charekyosr4twin5.entities.Piste;
 import tn.esprit.charekyosr4twin5.Services.PisteServiceImpl;
@@ -37,5 +38,12 @@ public class PisteRestController {
     @DeleteMapping("/delete/{numPiste}")
     public void deletePiste(@PathVariable Long numPiste) {
         pisteService.removePiste(numPiste);
+    }
+    @PostMapping("/assign/{numSkier}/{numPiste}")
+    public ResponseEntity<String> assignSkierToPiste(
+            @PathVariable Long numSkier,
+            @PathVariable Long numPiste) {
+        pisteService.assignSkierToPiste(numSkier, numPiste);
+        return ResponseEntity.ok("Le skieur a été assigné à la piste avec succès.");
     }
 }

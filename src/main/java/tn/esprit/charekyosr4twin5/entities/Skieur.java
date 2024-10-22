@@ -19,7 +19,7 @@ import java.util.Set;
 @Setter
 @ToString
 @NoArgsConstructor
-@Table//(name="t_skier")
+@Table
 public class Skieur implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
