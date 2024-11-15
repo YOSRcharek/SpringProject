@@ -4,8 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import tn.esprit.charekyosr4twin5.entities.Subscription;
 import tn.esprit.charekyosr4twin5.Repositories.ISubscriptionRepository;
+import tn.esprit.charekyosr4twin5.entities.TypeSubscription;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 @Service
 @RequiredArgsConstructor
@@ -37,4 +41,9 @@ public class SubscriptionServiceImpl implements ISubscriptionService {
     public List<Subscription> getAllSubscriptions() {
         return (List<Subscription>) subscriptionRepository.findAll();
     }
+    @Override
+    public Set<Subscription> getSubscriptionByType(TypeSubscription type) {
+        return new HashSet<>(subscriptionRepository.findByTypeSubOrderByStartDate(type));
+    }
+
 }

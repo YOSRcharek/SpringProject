@@ -41,4 +41,15 @@ public class InstructorRestController {
     public void deleteInstructor(@PathVariable Long numInstructor) {
         instructorService.removeInstructor(numInstructor);
     }
+    @Operation(description = "ajouter une instructor a une course de la base de données")
+    @PostMapping("/addToCourse")
+    public Instructor addInstructorToCourse(@RequestBody Instructor instructor,List<Long> numCourse) {
+        return instructorService.addInstructorToCourse(instructor, numCourse);
+    }
+
+    @Operation(description = "ajouter une instructor et les assigners a des courses de la base de données")
+    @PostMapping("/addAndAssignToCourses")
+    public Instructor addInstructorAndAssignToCourses(@RequestBody Instructor instructor) {
+        return instructorService.addInstructorAndAssignToCourses(instructor);
+    }
 }

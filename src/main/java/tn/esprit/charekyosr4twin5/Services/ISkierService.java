@@ -1,6 +1,8 @@
 package tn.esprit.charekyosr4twin5.Services;
 
 import tn.esprit.charekyosr4twin5.entities.Skieur;
+import tn.esprit.charekyosr4twin5.entities.Subscription;
+import tn.esprit.charekyosr4twin5.entities.TypeSubscription;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -14,4 +16,6 @@ public interface ISkierService {
  Skieur getByFLname(String firstName,String lastName );
 
  Skieur getByDate(LocalDate date);
+ Skieur addSkierAndAssignToCourse(Skieur skieur, Long numCourse);
+ List<Skieur> retrieveSkiersBySubscriptionType(TypeSubscription typeSubscription);
 }

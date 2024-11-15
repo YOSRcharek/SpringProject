@@ -1,5 +1,6 @@
 package tn.esprit.charekyosr4twin5.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -29,9 +30,6 @@ public class Course implements Serializable {
     private int timeSlot ;
     @Enumerated(EnumType.STRING)
     private Support support;
-    public enum Support {
-        SKI, SNOWBOARD
-    }
 
     @Enumerated(EnumType.STRING)
     private TypeCourse typeCourse;

@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import tn.esprit.charekyosr4twin5.Services.ISkierService;
 import tn.esprit.charekyosr4twin5.Services.SkierServicesimpl;
 import tn.esprit.charekyosr4twin5.entities.Skieur;
+import tn.esprit.charekyosr4twin5.entities.Subscription;
+import tn.esprit.charekyosr4twin5.entities.TypeSubscription;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -54,4 +56,13 @@ private final ISkierService skierServices;
        return skierServices.getByDate(birthDate);
     }
 
+    @PostMapping("/addSkierAndAssignToCourse/{numCourse}")
+    public Skieur addSkierAndAssignToCourse(@RequestBody Skieur skieur, @PathVariable Long numCourse) {
+        return skierServices.addSkierAndAssignToCourse(skieur, numCourse);
+    }
+
+    @GetMapping("/retrieveBySubscriptionType")
+    public List<Skieur> retrieveSkiersBySubscriptionType(@RequestParam TypeSubscription typeSubscription) {
+        return skierServices.retrieveSkiersBySubscriptionType(typeSubscription);
+    }
 }

@@ -29,10 +29,6 @@ public class Subscription implements Serializable {
     private LocalDate startDate;
     private LocalDate endDate;
     @Enumerated(EnumType.STRING)
-    private Subscription.TypeSubscription typeSub;
-    public enum TypeSubscription {
-        ANNUAL, MONTHLY, SEMESTRIAL
-    }
-
+    private TypeSubscription typeSub;
 
 }

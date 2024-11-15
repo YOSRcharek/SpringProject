@@ -4,15 +4,23 @@ package tn.esprit.charekyosr4twin5.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.charekyosr4twin5.Repositories.ISkieurRepository;
-import tn.esprit.charekyosr4twin5.entities.Skieur;
+import tn.esprit.charekyosr4twin5.entities.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
 public class SkierServicesimpl implements ISkierService {
  @Autowired
     private ISkieurRepository skieurRepository;
+    @Autowired
+    private IRegistrationService RegistrationRepository;
+    @Autowired
+    private ISubscriptionService SubscriptionRepository;
+    @Autowired
+    private ICourseService CourseRepository;
+
  @Override
  public Skieur addSkier(Skieur skieur){
 
@@ -49,5 +57,27 @@ public class SkierServicesimpl implements ISkierService {
     @Override
     public Skieur getByDate(LocalDate date) {
         return skieurRepository.findFirstByBirthDate(date);
+    }
+
+    @Override
+    public Skieur addSkierAndAssignToCourse(Skieur skieur, Long numCourse) {
+        Subscription subscription = new Subscription();
+        skieur.setSubscription(subscription);
+        SubscriptionRepository.addSubscription(subscription);
+        Course course = CourseRepository.retrieveCourse(numCourse);
+        Registration registration = new Registration();
+        registration.setCourse(course);
+        registration.setSkieur(skieur);
+        if (skieur.getRegistrations() == null) {
+            skieur.setRegistrations(new HashSet<>());
+        }
+        skieur.getRegistrations().add(registration);
+        RegistrationRepository.addRegistration(registration);
+        return skieurRepository.save(skieur);
+    }
+
+    @Override
+   public List<Skieur> retrieveSkiersBySubscriptionType(TypeSubscription typeSubscription) {
+        return skieurRepository.findBySubscription_TypeSub(typeSubscription);
     }
 }
