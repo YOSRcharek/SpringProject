@@ -1,8 +1,11 @@
 package tn.esprit.charekyosr4twin5.Services;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tn.esprit.charekyosr4twin5.Repositories.ISkieurRepository;
 import tn.esprit.charekyosr4twin5.entities.*;
 
@@ -11,6 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 
 @Service
+@Slf4j
 public class SkierServicesimpl implements ISkierService {
  @Autowired
     private ISkieurRepository skieurRepository;
@@ -60,8 +64,17 @@ public class SkierServicesimpl implements ISkierService {
     }
 
     @Override
+    @Transactional
     public Skieur addSkierAndAssignToCourse(Skieur skieur, Long numCourse) {
-        Subscription subscription = new Subscription();
+        Course course = CourseRepository.retrieveCourse(numCourse);
+        for(Registration registration:skieur.getRegistrations()){
+            registration.setSkieur(skieur);
+            registration.setCourse(course);
+            RegistrationRepository.addRegistration(registration);
+        }
+        return skieurRepository.save(skieur);
+
+       /* Subscription subscription = new Subscription();
         skieur.setSubscription(subscription);
         SubscriptionRepository.addSubscription(subscription);
         Course course = CourseRepository.retrieveCourse(numCourse);
@@ -74,10 +87,21 @@ public class SkierServicesimpl implements ISkierService {
         skieur.getRegistrations().add(registration);
         RegistrationRepository.addRegistration(registration);
         return skieurRepository.save(skieur);
+        */
     }
 
     @Override
    public List<Skieur> retrieveSkiersBySubscriptionType(TypeSubscription typeSubscription) {
         return skieurRepository.findBySubscription_TypeSub(typeSubscription);
+    }
+
+    @Override
+    @Scheduled(cron ="*/15 * * * * *")
+    public void listeSkieurAbonnesTerminerNotif() {
+       // System.out.println("Bonjour");
+        log.info("bonjour");
+        log.debug("in methode : getSkiersNotif");
+        log.error("ceci est une exception");
+        log.warn("Warning ");
     }
 }

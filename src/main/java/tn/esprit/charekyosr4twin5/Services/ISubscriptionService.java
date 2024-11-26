@@ -13,4 +13,5 @@ public interface ISubscriptionService {
     Subscription retrieveSubscription(Long numSubscription);
     List<Subscription> getAllSubscriptions();
     Set<Subscription> getSubscriptionByType(TypeSubscription type);
+    void  getStartedDate();
 }

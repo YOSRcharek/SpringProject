@@ -1,5 +1,6 @@
 package tn.esprit.charekyosr4twin5.Services;
 
+import lombok.extern.slf4j.Slf4j;
 import tn.esprit.charekyosr4twin5.entities.Skieur;
 import tn.esprit.charekyosr4twin5.entities.Subscription;
 import tn.esprit.charekyosr4twin5.entities.TypeSubscription;
@@ -18,4 +19,7 @@ public interface ISkierService {
  Skieur getByDate(LocalDate date);
  Skieur addSkierAndAssignToCourse(Skieur skieur, Long numCourse);
  List<Skieur> retrieveSkiersBySubscriptionType(TypeSubscription typeSubscription);
+
+ void listeSkieurAbonnesTerminerNotif()
+         ;
 }

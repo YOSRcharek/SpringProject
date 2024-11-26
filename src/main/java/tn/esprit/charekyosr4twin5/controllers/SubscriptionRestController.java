@@ -50,4 +50,5 @@ public class SubscriptionRestController {
         return subscriptionService.getSubscriptionByType(type);
     }
 
+
 }

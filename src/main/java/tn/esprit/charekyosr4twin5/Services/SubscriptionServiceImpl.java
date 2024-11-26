@@ -1,6 +1,8 @@
 package tn.esprit.charekyosr4twin5.Services;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import tn.esprit.charekyosr4twin5.entities.Subscription;
 import tn.esprit.charekyosr4twin5.Repositories.ISubscriptionRepository;
@@ -12,6 +14,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class SubscriptionServiceImpl implements ISubscriptionService {
 
@@ -45,5 +48,14 @@ public class SubscriptionServiceImpl implements ISubscriptionService {
     public Set<Subscription> getSubscriptionByType(TypeSubscription type) {
         return new HashSet<>(subscriptionRepository.findByTypeSubOrderByStartDate(type));
     }
+
+    @Override
+    @Scheduled(cron = "*/60 * * * * *")
+    public void getStartedDate() {
+      for(Subscription subscription :subscriptionRepository.getByStartDate()){
+          log.info(subscription.toString());
+      }
+    }
+
 
 }
